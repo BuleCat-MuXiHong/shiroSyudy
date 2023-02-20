@@ -1,8 +1,8 @@
-package com.shiro.condig.shiro;
+package com.shiro.config.shiro;
 
+import com.shiro.common.WhiteList;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SessionsSecurityManager;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -18,9 +18,9 @@ public class ShiroConfig {
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         chainDefinition.addPathDefinition("/login", "anon");
-//        WhiteList.ALL.forEach(str -> {
-//            chainDefinition.addPathDefinition(str, "anon");
-//        });
+        WhiteList.ALL.forEach(str -> {
+            chainDefinition.addPathDefinition(str, "anon");
+        });
         // all other paths require a logged in user
         chainDefinition.addPathDefinition("/**", "authc");
         return chainDefinition;
